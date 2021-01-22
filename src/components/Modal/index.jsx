@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Fade from "@material-ui/core/Fade";
 import PropTypes from "prop-types";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { ModalContext } from "../../context/modalContext";
+import { ModalContext } from "../../providers/modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,15 +38,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Modal({ ...props }) {
   const styles = useStyles();
-  const { modalState, modalDispatch } = React.useContext(ModalContext);
-
+  const { modalState, setToggleModal } = React.useContext(ModalContext);
   return (
     <MuiModal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={styles.root}
       open={modalState.isOpen}
-      onClose={() => modalDispatch({ type: "close" })}
+      onClose={() => setToggleModal({ type: "close" })}
       closeAfterTransition
       {...props}
     >
