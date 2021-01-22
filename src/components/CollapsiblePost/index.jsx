@@ -3,22 +3,53 @@ import {
   Box,
   Collapse,
   IconButton,
-  Table,
-  TableBody,
   TableCell,
-  TableHead,
   TableRow,
   Typography,
 } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-
+import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import { ModalContext, reducer } from "../../providers/modal";
 export default function CollapsiblePost({ post }) {
   const [open, setOpen] = React.useState(false);
+
+  const { modalState, setToggleModal } = React.useContext(ModalContext);
+
+  const removePost = (id) => {
+    console.log("Remove: ", id);
+  };
+
+  const editPost = (id) => {
+    console.log("Edit: ", id);
+    setToggleModal({ type: "open", payload: "Editar Post" });
+  };
+
   return (
     <>
       <TableRow>
+        <TableCell component="th" scope="row">
+          {post.title}
+        </TableCell>
+        <TableCell align="right">{post.body}</TableCell>
+
         <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => editPost(post.id)}
+          >
+            <EditOutlinedIcon />
+          </IconButton>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => removePost(post.id)}
+          >
+            <DeleteOutlinedIcon />
+          </IconButton>
+
           <IconButton
             aria-label="expand row"
             size="small"
@@ -27,40 +58,20 @@ export default function CollapsiblePost({ post }) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {post.title}
-        </TableCell>
-        <TableCell align="right">{post.body}</TableCell>
       </TableRow>
+      {/**
+       *
+       * Collapsible
+       *
+       */}
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <Box margin={1}>
+            <Typography variant="h5" gutterBottom component="h5">
+              Comentários
+            </Typography>
+          </Box>
+        </Collapse>
       </TableRow>
     </>
   );
