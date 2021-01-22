@@ -1,12 +1,11 @@
-import Header from "./components/Header";
 import Routes from "./routes/routes";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
-    <>
-      <Header />
+    <SnackbarProvider maxSnack={3}>
       <Routes />
-    </>
+    </SnackbarProvider>
   );
 }
 
