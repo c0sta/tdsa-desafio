@@ -6,7 +6,7 @@ import { getAllPosts } from "../../services/postService";
 import Table from "../../components/Table";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddPost } from "../AddPost";
-import { ModalContext } from "../../context/modalContext";
+import { ModalContext } from "../../providers/modal";
 import Header from "../../components/Header";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,18 +16,24 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   button: {
-    alignSelf: "right",
+    margin: theme.spacing(3),
   },
 }));
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  const { modalState, modalDispatch } = React.useContext(ModalContext);
+
+  const { modalState, setToggleModal } = React.useContext(ModalContext);
+
   const styles = useStyles();
 
   React.useEffect(() => {
     (() => getAllPosts().then((postsArray) => setPosts(postsArray)))();
   }, []);
+
+  const openModal = () => {
+    setToggleModal({ type: "open", payload: "Novo Post" });
+  };
 
   return (
     <>
@@ -38,12 +44,7 @@ export default function Home() {
             className={styles.button}
             variant="contained"
             color="primary"
-            onClick={() =>
-              modalDispatch({
-                type: "open",
-                payload: "Novo Post",
-              })
-            }
+            onClick={() => openModal()}
           >
             Adicionar post
           </Button>
