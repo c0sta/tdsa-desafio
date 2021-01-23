@@ -1,24 +1,24 @@
-import PropTypes from "prop-types";
-
-const apiPath = "https://jsonplaceholder.typicode.com/";
-const getAllPostsUrl = apiPath + "posts";
-const getPostUrl = apiPath + "posts/";
-const createPostUrl = apiPath + "posts";
+const apiPath = "https://jsonplaceholder.typicode.com";
+const getAllUrl = apiPath + "/posts";
+const createUrl = apiPath + "/posts";
+const getByIdUrl = (id) => `${apiPath}/posts/${id}`;
+const updateUrl = (id) => `${apiPath}/posts/${id}`;
+const deleteUrl = (id) => `${apiPath}/posts/${id}`;
 
 function getAllPosts() {
-  return fetch(getAllPostsUrl)
+  return fetch(getAllUrl)
     .then((response) => response.json())
     .then((postsArray) => postsArray);
 }
 
 function getPost(id) {
-  return fetch(getPostUrl + JSON.stringify(id))
+  return fetch(getByIdUrl(id))
     .then((response) => response.json())
     .then((postObject) => postObject);
 }
 
 function create(data) {
-  return fetch(createPostUrl, {
+  return fetch(createUrl, {
     method: "POST", // or 'PUT'
     headers: {
       "Content-Type": "application/json",
@@ -27,26 +27,42 @@ function create(data) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      console.log("Criado: ", data);
       return { data };
     });
 }
 
-function update(id) {
-  return id;
+function update(formData, postId) {
+  return fetch(updateUrl(postId), {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Editado: ", data);
+      return { data };
+    });
 }
 
-export { getAllPosts, getPost, create };
+function deletePost(id) {
+  return fetch(deleteUrl(id), {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    console.log("Deletado!", response);
+    response.json();
+  });
+}
 
-getPost.propTypes = {
-  id: PropTypes.number,
-};
-update.propTypes = {
-  id: PropTypes.number,
-};
-create.propTypes = {
-  data: PropTypes.shape({
-    post: PropTypes.string,
-    title: PropTypes.string,
-  }),
+export const postService = {
+  getAll: getAllPosts,
+  getById: getPost,
+  create,
+  update,
+  delete: deletePost,
 };

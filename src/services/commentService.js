@@ -1,30 +1,27 @@
-import PropTypes from "prop-types";
+export const commentService = {
+  getAllByPostId,
+  create,
+};
 
-const apiPath = "https://jsonplaceholder.typicode.com/";
-const getAllCommentsUrl = apiPath + "posts/";
-// const getCommentUrl = apiPath + "comments?postId=";
-const createCommentUrl = apiPath + "posts/";
+const apiPath = "https://jsonplaceholder.typicode.com";
+const getByIdUrl = (postId) => `${apiPath}/posts/${postId}/comments`;
+const createUrl = (postId) => `${apiPath}/posts/${postId}`;
 
-export function getAllCommentsFromPost(postId) {
-  return fetch(createCommentUrl + postId.toString() + "/comments")
+function getAllByPostId(postId) {
+  return fetch(getByIdUrl(postId))
     .then((response) => response.json())
-    .then((commentsArray) => commentsArray);
+    .then((commentsArray) => commentsArray)
+    .catch((error) => alert("Erro ao buscar comentários desse post"));
 }
 
-export function create({ data, postId }) {
-  return fetch(createCommentUrl + postId + "/comments", {
+function create({ commentData, postId }) {
+  return fetch(createUrl(postId), {
     method: "POST", // or 'PUT'
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(commentData),
   })
     .then((response) => response.json())
-    .then((data) => {
-      return { data };
-    });
-}
-
-function update(id) {
-  return id;
+    .catch((error) => alert("Erro ao comentar no post"));
 }
