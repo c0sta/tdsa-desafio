@@ -4,7 +4,7 @@ const initialState = {
   isOpen: false,
   title: "",
   type: "",
-  postId: null,
+  postId: 0,
 };
 export const ModalContext = React.createContext(initialState);
 
