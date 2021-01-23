@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { Form } from "../../components/Form";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
@@ -60,7 +59,7 @@ export const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Form
+        <form
           className={classes.form}
           noValidate
           onSubmit={handleSubmit(onSubmit)}
@@ -109,7 +108,7 @@ export const Login = () => {
               </Link>
             </Grid>
           </Grid> */}
-        </Form>
+        </form>
       </div>
     </Container>
   );

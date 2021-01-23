@@ -11,7 +11,7 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import { ModalContext, reducer } from "../../providers/modal";
+import { ModalContext } from "../../providers/modal";
 export default function CollapsiblePost({ post }) {
   const [open, setOpen] = React.useState(false);
 
@@ -23,7 +23,10 @@ export default function CollapsiblePost({ post }) {
 
   const editPost = (id) => {
     console.log("Edit: ", id);
-    setToggleModal({ type: "open", payload: "Editar Post" });
+    setToggleModal({
+      type: "open",
+      payload: { title: "Editar Post", type: "edit", postId: id },
+    });
   };
 
   return (

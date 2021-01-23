@@ -3,17 +3,21 @@ import React from "react";
 const initialState = {
   isOpen: false,
   title: "",
+  type: "",
+  postId: null,
 };
 export const ModalContext = React.createContext(initialState);
 
 const reducer = (state, action) => {
-  console.log("Reducer =>", state, action);
+  // console.log("Reducer =>", state, action);
   switch (action.type) {
     case "open":
       return {
         ...state,
         isOpen: true,
-        title: action.payload,
+        title: action.payload.title,
+        type: action.payload.type,
+        postId: action.payload.postId,
       };
     case "close":
       return {

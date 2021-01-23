@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const apiPath = "https://jsonplaceholder.typicode.com/";
 const getAllPostsUrl = apiPath + "posts";
-const getPostUrl = apiPath + "post/";
+const getPostUrl = apiPath + "posts/";
 const createPostUrl = apiPath + "posts";
 
 function getAllPosts() {
@@ -14,7 +14,7 @@ function getAllPosts() {
 function getPost(id) {
   return fetch(getPostUrl + JSON.stringify(id))
     .then((response) => response.json())
-    .then((postObject) => console.log(postObject));
+    .then((postObject) => postObject);
 }
 
 function create(data) {
@@ -27,6 +27,7 @@ function create(data) {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       return { data };
     });
 }

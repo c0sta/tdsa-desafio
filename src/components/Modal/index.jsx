@@ -5,7 +5,8 @@ import Fade from "@material-ui/core/Fade";
 import PropTypes from "prop-types";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { ModalContext } from "../../providers/modal";
-
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import EditIcon from "@material-ui/icons/Edit";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -53,7 +54,7 @@ export default function Modal({ ...props }) {
         <div className={styles.paper}>
           <Box className={styles.modalTitle}>
             <Avatar className={styles.avatar}>
-              <LockOutlinedIcon />
+              {modalState.type === "new" ? <AddCircleIcon /> : <EditIcon />}
             </Avatar>
             <Typography component="h1" variant="h5">
               {modalState.title}

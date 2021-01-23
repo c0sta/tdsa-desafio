@@ -32,7 +32,10 @@ export default function Home() {
   }, []);
 
   const openModal = () => {
-    setToggleModal({ type: "open", payload: "Novo Post" });
+    setToggleModal({
+      type: "open",
+      payload: { title: "Novo Post", type: "new" },
+    });
   };
 
   return (
@@ -54,7 +57,7 @@ export default function Home() {
               <CollapsiblePost key={post.id} post={post} />
             ))}
           </Table>
-          {modalState.isOpen ? <AddPost /> : null}
+          {modalState.isOpen && <AddPost />}
         </Grid>
       </Container>
     </>

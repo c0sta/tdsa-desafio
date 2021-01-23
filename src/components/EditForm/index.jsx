@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PostForm = () => {
+export const EditForm = () => {
   const { formState, setFormValues } = useFormContext();
   const { register, handleSubmit, errors, reset } = useForm({
     mode: "onBlur",
@@ -29,6 +29,21 @@ export const PostForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const styles = useStyles();
 
+  React.useEffect(() => {
+    if (modalState.type === "edit") {
+      getPost(modalState.postId).then(({ id, title, body }) => {
+        console.log(id, title, body);
+        setFormValues({
+          type: "post",
+          payload: {
+            postId: id,
+            title,
+            post: body,
+          },
+        });
+      });
+    }
+  }, []);
   const onSubmit = (formData) => {
     return create(formData).then((response) => {
       if (response.data) {
