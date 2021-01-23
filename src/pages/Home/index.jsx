@@ -1,13 +1,9 @@
 import { Button, Container, Grid } from "@material-ui/core";
 import React, { useState } from "react";
-import CollapsiblePost from "../../components/CollapsiblePost";
-import { getAllPosts } from "../../services/postService";
 
-import Table from "../../components/Table";
 import { makeStyles } from "@material-ui/core/styles";
-import { AddPost } from "../AddPost";
 import { ModalContext } from "../../providers/modal";
-import Header from "../../components/Header";
+import { Header, PostForm, List } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -21,15 +17,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
-
   const { modalState, setToggleModal } = React.useContext(ModalContext);
 
   const styles = useStyles();
-
-  React.useEffect(() => {
-    (() => getAllPosts().then((postsArray) => setPosts(postsArray)))();
-  }, []);
 
   const openModal = () => {
     setToggleModal({
@@ -42,7 +32,7 @@ export default function Home() {
     <>
       <Header />
       <Container maxWidth="md" className={styles.container}>
-        <Grid container direction="row">
+        <Grid container direction="column" justify="flex-end">
           <Button
             className={styles.button}
             variant="contained"
@@ -52,12 +42,9 @@ export default function Home() {
             Adicionar post
           </Button>
 
-          <Table tableHeaderTitles={["Post", "Texto"]}>
-            {posts.map((post) => (
-              <CollapsiblePost key={post.id} post={post} />
-            ))}
-          </Table>
-          {modalState.isOpen && <AddPost />}
+          <List isPosts />
+
+          {modalState.type === "new" ? <PostForm isAdd /> : <PostForm isEdit />}
         </Grid>
       </Container>
     </>
