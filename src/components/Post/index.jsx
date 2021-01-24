@@ -17,25 +17,8 @@ import { postService } from "../../services";
 import Swal from "sweetalert2";
 import { useSnackbar } from "notistack";
 import { useFormContext } from "../../providers/form";
+import { useStyles } from "./styles";
 import { useTranslation } from "react-i18next";
-
-const useStyles = makeStyles((theme) => ({
-  actionButtonsContainer: {
-    display: "flex",
-  },
-  container: {},
-  title: {
-    fontSize: 16,
-    fontWeight: 700,
-    color: "#333",
-  },
-  body: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: "#333",
-  },
-}));
-
 export function Post({ post }) {
   const [open, setOpen] = React.useState(false);
   const [confirmation, setConfirmation] = React.useState(null);
