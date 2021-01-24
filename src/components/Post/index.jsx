@@ -1,27 +1,71 @@
 import React from "react";
 import {
+  Avatar,
   Box,
-  Collapse,
+  Divider,
   IconButton,
-  TableCell,
-  TableRow,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  makeStyles,
   Typography,
 } from "@material-ui/core";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { ModalContext } from "../../providers/modal";
-
 import { postService } from "../../services";
+import Swal from "sweetalert2";
+import { useSnackbar } from "notistack";
+import { useFormContext } from "../../providers/form";
+
+const useStyles = makeStyles((theme) => ({
+  actionButtonsContainer: {
+    display: "flex",
+  },
+  container: {},
+  title: {
+    fontSize: 16,
+    fontWeight: 700,
+    color: "#333",
+  },
+  body: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: "#333",
+  },
+}));
 
 export function Post({ post }) {
   const [open, setOpen] = React.useState(false);
-
+  const [confirmation, setConfirmation] = React.useState(null);
   const { modalState, setToggleModal } = React.useContext(ModalContext);
+  const { formState, setFormValues } = useFormContext();
+  const styles = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const removePost = (id) => {
-    return postService.delete(id).then((response) => console.log(response));
+    console.log(id);
+    Swal.fire({
+      title: "Você tem certeza?",
+      text: "Não será possível reverter!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, deletar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deletado!", "A postagem foi excluida", "success");
+        const filteredPosts = formState.posts.filter((post) => post.id !== id);
+        setFormValues({ type: "posts", payload: [...filteredPosts] });
+        console.log(filteredPosts);
+        return postService.delete(id).then((response) => console.log(response));
+      } else {
+        enqueueSnackbar("Erro ao deletar post", {
+          variant: "error",
+        });
+      }
+    });
   };
 
   const editPost = (id) => {
@@ -31,54 +75,56 @@ export function Post({ post }) {
       payload: { title: "Editar Post", type: "edit", postId: id },
     });
   };
-
   return (
     <>
-      <TableRow>
-        <TableCell component="th" scope="row">
-          {post.title}
-        </TableCell>
-        <TableCell align="right">{post.body}</TableCell>
+      <ListItem alignItems="center">
+        <ListItemAvatar>
+          <Avatar
+            alt="Remy Sharp"
+            src="https://i.pinimg.com/236x/50/e7/b9/50e7b9e3b515c09f11365487a7336f8f.jpg"
+          />
+        </ListItemAvatar>
 
-        <TableCell>
+        <ListItemText
+          primary={
+            <Box>
+              <Typography
+                component="span"
+                variant="h6"
+                className={styles.title}
+                color="textPrimary"
+              >
+                <strong>{post.title}</strong>
+              </Typography>
+            </Box>
+          }
+          secondary={
+            <Box>
+              <Typography className={styles.body} color="textPrimary">
+                {post.body}
+              </Typography>
+            </Box>
+          }
+        />
+
+        <Box display="flex" flexDirection="row">
           <IconButton
             aria-label="expand row"
             size="small"
             onClick={() => editPost(post.id)}
           >
-            <EditOutlinedIcon />
+            <EditOutlinedIcon color="primary" />
           </IconButton>
           <IconButton
             aria-label="expand row"
             size="small"
             onClick={() => removePost(post.id)}
           >
-            <DeleteOutlinedIcon />
+            <DeleteOutlinedIcon color="error" />
           </IconButton>
-
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-      </TableRow>
-      {/**
-       *
-       * Collapsible
-       *
-       */}
-      <TableRow>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <Box margin={1}>
-            <Typography variant="h5" gutterBottom component="h5">
-              Comentários
-            </Typography>
-          </Box>
-        </Collapse>
-      </TableRow>
+        </Box>
+      </ListItem>
+      <Divider variant="inset" component="li" />
     </>
   );
 }
