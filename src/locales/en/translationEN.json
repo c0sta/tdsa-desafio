@@ -1,0 +1,14 @@
+{
+  "headerTitle": "Home",
+  "buttonLogin": "Sign In",
+  "titleLogin": "Sign In",
+  "buttonAddPost": "Add Post",
+  "searchPlaceholder": "Search...",
+  "titleModalEdit": "Edit post",
+  "backButton": "Back",
+  "saveButton": "Save",
+  "saveAndContinueButton": "Save and Continue",
+  "titleComment": "Comments",
+  "titleModalComment": "Comment",
+  "buttonAddComment": "Add comment"
+}
