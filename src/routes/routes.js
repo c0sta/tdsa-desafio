@@ -11,7 +11,7 @@ export default function Routes() {
       <ModalProvider>
         <BrowserRouter>
           <Route path="/" exact component={Login} />
-          <Route path="/app" exact component={Home} />
+          <Route path="/app" component={Home} />
         </BrowserRouter>
       </ModalProvider>
     </FormProvider>
