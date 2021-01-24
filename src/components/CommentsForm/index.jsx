@@ -27,6 +27,8 @@ import ChatIcon from "@material-ui/icons/Chat";
 import { useStyles } from "./styles";
 import { AccountCircle } from "@material-ui/icons";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import { useTranslation } from "react-i18next";
+
 export const CommentsForm = ({ postId }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [showForm, setShowForm] = React.useState(false);
@@ -35,6 +37,8 @@ export const CommentsForm = ({ postId }) => {
   const { register, handleSubmit, errors } = useForm({
     mode: "onSubmit",
   });
+  const { t, i18n } = useTranslation();
+
   const styles = useStyles();
 
   const onSubmit = (formData) => {
@@ -80,7 +84,7 @@ export const CommentsForm = ({ postId }) => {
               <ChatIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Comentar
+              {t("titleModalComment")}
             </Typography>
             <IconButton
               aria-label="expand row"
@@ -199,7 +203,7 @@ export const CommentsForm = ({ postId }) => {
         <Typography variant="h6" gutterBottom component="div">
           <Box display="flex" flexDirection="row" alignItems="center">
             <MessageOutlined className={styles.icon} />
-            Comentários
+            {t("titleComment")}
           </Box>
         </Typography>
 
@@ -234,7 +238,7 @@ export const CommentsForm = ({ postId }) => {
             disabled={!postId}
             // className={styles.addCommentButton}
           >
-            <AddIcon /> Adicionar Comentário
+            <AddIcon /> {t("buttonAddComment")}
           </IconButton>
         </Box>
         {showForm && <AddComment />}
