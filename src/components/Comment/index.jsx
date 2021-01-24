@@ -71,7 +71,6 @@ export const Comment = ({ data }) => {
             <Box>
               <Typography
                 component="p"
-                variant=""
                 className={styles.body}
                 color="textPrimary"
               >

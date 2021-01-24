@@ -2,51 +2,38 @@ import React from "react";
 import MessageOutlined from "@material-ui/icons/MessageOutlined";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import AddIcon from "@material-ui/icons/AddCircle";
+
 import {
   Box,
   Collapse,
   Typography,
   IconButton,
   Grid,
-  makeStyles,
   Button,
   Divider,
+  Avatar,
+  InputAdornment,
 } from "@material-ui/core";
 import { Input } from "../Input";
 import { useForm } from "react-hook-form";
 import SendIcon from "@material-ui/icons/Send";
-import { create } from "../../services/postService";
+import { postService } from "../../services";
 import { useFormContext } from "../../providers/form";
-
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  boxContainer: {
-    margin: theme.spacing(1, 1, 1),
-    marginTop: theme.spacing(3),
-
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  inputMargin: { marginTop: theme.spacing(1) },
-  submitButton: {
-    marginLeft: theme.spacing(1.3),
-    marginTop: theme.spacing(1),
-  },
-}));
-
+import { List } from "../List";
+import { Modal as MuiModal } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import ChatIcon from "@material-ui/icons/Chat";
+import { useStyles } from "./styles";
+import { AccountCircle } from "@material-ui/icons";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 export const CommentsForm = ({ postId }) => {
-  const [isOpen, setOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [showForm, setShowForm] = React.useState(false);
+  const [showComments, setShowComments] = React.useState(false);
   const { formState, setFormValues } = useFormContext();
   const { register, handleSubmit, errors } = useForm({
-    mode: "onBlur",
-    defaultValues: {
-      name: formState.comment?.name,
-      email: formState.comment?.email,
-      body: formState.comment?.body,
-    },
+    mode: "onSubmit",
   });
   const styles = useStyles();
 
@@ -59,60 +46,113 @@ export const CommentsForm = ({ postId }) => {
         body: formData.body,
       },
     });
-
-    return create({ ...formData, postId: postId }).then((response) => {
-      console.log("Comentario Response => ", response);
+    setFormValues({
+      type: "comments",
+      payload: [
+        ...formState.comments,
+        {
+          name: formData.name,
+          email: formData.email,
+          body: formData.body,
+        },
+      ],
     });
+    return postService
+      .create({ ...formData, postId: postId })
+      .then((response) => {
+        console.log("Comentario Response => ", response);
+      });
   };
 
   const AddComment = () => {
     return (
-      <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Input
-              name="name"
-              label="Nome"
-              type="text"
-              id="name"
-              inputRef={register({
-                required: {
-                  value: true,
-                  message: "Nome é um campo obrigatório",
-                },
-                maxLength: {
-                  value: 40,
-                  message: "Máximo de 40 caracteres",
-                },
-                minLength: { value: 3, message: "Mínimo de 3 caracteres" },
-              })}
-              className={styles.inputMargin}
-              error={!!errors.name}
-              helperText={errors.name?.message}
-            />
+      <MuiModal open={showForm} className={styles.root}>
+        <form className={styles.paper} onSubmit={handleSubmit(onSubmit)}>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+            margin={2}
+          >
+            <Avatar className={styles.avatar}>
+              <ChatIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Comentar
+            </Typography>
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => {
+                setShowForm(!showForm);
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Box>
+
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Input
+                name="name"
+                label="Nome"
+                type="text"
+                id="name"
+                inputRef={register({
+                  required: {
+                    value: true,
+                    message: "Nome é um campo obrigatório",
+                  },
+                  maxLength: {
+                    value: 40,
+                    message: "Máximo de 40 caracteres",
+                  },
+                  minLength: { value: 3, message: "Mínimo de 3 caracteres" },
+                })}
+                className={styles.inputMargin}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Input
+                name="email"
+                label="E-mail"
+                type="email"
+                id="email"
+                inputRef={register({
+                  required: {
+                    value: true,
+                    message: "E-mail é um campo obrigatório",
+                  },
+                  maxLength: {
+                    value: 60,
+                    message: "Máximo de 60 caracteres",
+                  },
+                  minLength: { value: 10, message: "Mínimo de 10 caracteres" },
+                })}
+                className={styles.inputMargin}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AlternateEmailIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Input
-              name="email"
-              label="E-mail"
-              type="email"
-              id="email"
-              inputRef={register({
-                required: {
-                  value: true,
-                  message: "E-mail é um campo obrigatório",
-                },
-                maxLength: {
-                  value: 60,
-                  message: "Máximo de 60 caracteres",
-                },
-                minLength: { value: 10, message: "Mínimo de 10 caracteres" },
-              })}
-              className={styles.inputMargin}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-            />
-          </Grid>
+
           <Grid item xs={12}>
             <Input
               name="body"
@@ -144,16 +184,16 @@ export const CommentsForm = ({ postId }) => {
             startIcon={<SendIcon />}
             className={styles.submitButton}
             onClick={() => handleSubmit(onSubmit)}
+            fullWidth
           >
             Enviar
           </Button>
-        </Grid>
-      </form>
+        </form>
+      </MuiModal>
     );
   };
   return (
     <>
-      <Divider />
       <Box className={styles.boxContainer} flexGrow={1}>
         <Typography variant="h6" gutterBottom component="div">
           <Box display="flex" flexDirection="row" alignItems="center">
@@ -165,10 +205,13 @@ export const CommentsForm = ({ postId }) => {
         <IconButton
           aria-label="expand row"
           size="small"
-          onClick={() => setOpen(!isOpen)}
+          onClick={() => {
+            setIsOpen(!isOpen);
+            setShowComments(!showComments);
+          }}
           disabled={!(postId > 0)}
         >
-          {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          {showComments ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         </IconButton>
       </Box>
 
@@ -178,7 +221,25 @@ export const CommentsForm = ({ postId }) => {
         timeout="auto"
         unmountOnExit
       >
-        <AddComment />
+        <Box display="flex" flexDirection="row" justifyContent="flex-end">
+          <IconButton
+            aria-label="open modal"
+            variant="outlined"
+            color="primary"
+            size="small"
+            onClick={() => {
+              setShowForm(!showForm);
+            }}
+            disabled={!postId}
+            // className={styles.addCommentButton}
+          >
+            <AddIcon /> Adicionar Comentário
+          </IconButton>
+        </Box>
+        {showForm && <AddComment />}
+        <Box>
+          <List isComments />
+        </Box>
       </Collapse>
     </>
   );

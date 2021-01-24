@@ -1,13 +1,11 @@
 import { Box, Button, Divider, Grid, makeStyles } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Input } from "../Input";
-import { create, getPost } from "../../services/postService";
-import { ModalContext } from "../../providers/modal";
+import { postService } from "../../services";
 import { useSnackbar } from "notistack";
-import { CommentsForm } from "../CommentsForm";
-import { Alert } from "@material-ui/lab";
+import { ModalContext } from "../../providers/modal";
 import { useFormContext } from "../../providers/form";
+import { CommentsForm, Modal, Input } from "../";
 
 const useStyles = makeStyles((theme) => ({
   submit: {
@@ -15,42 +13,80 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PostForm = () => {
+export const PostForm = ({ isAdd, isEdit }) => {
   const { formState, setFormValues } = useFormContext();
-  const { register, handleSubmit, errors, reset } = useForm({
+  const { register, handleSubmit, errors, reset, setValue } = useForm({
     mode: "onBlur",
-    defaultValues: {
-      title: formState.post?.title,
-      post: formState.post?.post,
-    },
   });
   const { modalState, setToggleModal } = React.useContext(ModalContext);
   const [postId, setPostId] = React.useState(0);
+
   const { enqueueSnackbar } = useSnackbar();
   const styles = useStyles();
 
+  React.useEffect(() => {
+    if (!isAdd) loadFormData();
+  }, [modalState.postId]);
+
+  const createPost = (formData) => {
+    return postService
+      .create(formData)
+      .then((response) => {
+        if (response.data) {
+          // console.log("Salvar - Response", response);
+          enqueueSnackbar(`${formData.title} - Publicado com sucesso!`, {
+            variant: "success",
+          });
+          reset();
+          setFormValues({
+            type: "post",
+            payload: {
+              id: response.data?.id,
+              title: response.data?.title,
+              post: response.data?.post,
+            },
+          });
+          setPostId(response.data.id); // postId
+          return response;
+        }
+      })
+      .catch((error) =>
+        enqueueSnackbar(` Erro ao publicar ${formData.title}!`, {
+          variant: "error",
+        })
+      );
+  };
+  const editPost = (formData) => {
+    const { postId } = modalState;
+    return postService
+      .update(formData, postId)
+      .then((response) => {
+        if (response) {
+          enqueueSnackbar(`${formData.title} - Editado com sucesso!`, {
+            variant: "success",
+          });
+
+          return response;
+        }
+      })
+      .catch((error) =>
+        enqueueSnackbar(` Erro ao editar ${formData.title}!`, {
+          variant: "error",
+        })
+      );
+  };
+
+  const loadFormData = () => {
+    if (modalState.postId !== 0)
+      return postService.getById(modalState.postId).then((response) => {
+        const formFields = ["title", "body"];
+
+        formFields.forEach((field) => setValue(field, response[field]));
+      });
+  };
+
   const onSubmit = (formData) => {
-    return create(formData).then((response) => {
-      if (response.data) {
-        console.log("Salvar - Response", response);
-
-        enqueueSnackbar(`${formData.title} - Publicado com sucesso!`, {
-          variant: "success",
-        });
-        reset();
-
-        setFormValues({
-          type: "post",
-          payload: {
-            id: response.data?.id,
-            title: response.data?.title,
-            post: response.data?.post,
-          },
-        });
-        setPostId(response.data.id); // postId
-        return response;
-      }
-    });
+    return isAdd ? createPost(formData) : editPost(formData);
   };
 
   const submitAndRedirect = async (formData) => {
@@ -59,30 +95,32 @@ export const PostForm = () => {
   };
 
   return (
-    <>
+    <Modal
+      handleSubmit={handleSubmit(onSubmit)}
+      handleSubmitAndRedirect={handleSubmit(submitAndRedirect)}
+    >
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Input
               id="title"
-              label="Título"
+              label={!isAdd ? "" : "Título"}
               name="title"
               inputRef={register({
                 required: { value: true, message: "Título é obrigatório" },
-                maxLength: { value: 20, message: "Máximo de 20 caracteres" },
+                maxLength: { value: 40, message: "Máximo de 40 caracteres" },
                 minLength: { value: 2, message: "Mínimo de 2 caracteres" },
               })}
               error={!!errors.title}
               helperText={errors.title?.message}
-              defaultValue={formState.title}
             />
           </Grid>
           <Grid item xs={12}>
             <Input
-              name="post"
-              label="Publicação"
+              name="body"
+              label={!isAdd ? "" : "Publicação"}
               type="text"
-              id="post"
+              id="body"
               rows="4"
               multiline
               inputRef={register({
@@ -91,54 +129,21 @@ export const PostForm = () => {
                   message: "Publicação é um campo obrigatório",
                 },
                 maxLength: {
-                  value: 120,
-                  message: "Máximo de 120 caracteres",
+                  value: 240,
+                  message: "Máximo de 240 caracteres",
                 },
                 minLength: { value: 10, message: "Mínimo de 10 caracteres" },
               })}
-              error={!!errors.post}
-              helperText={errors.post?.message}
+              error={!!errors.body}
+              helperText={errors.body?.message}
             />
           </Grid>
         </Grid>
-
-        <Divider />
-
-        <Box display="flex" width="100%" margin={1}>
-          <Box flexGrow={1}>
-            <Button
-              color="secondary"
-              onClick={() => {
-                setToggleModal({ type: "close" });
-              }}
-            >
-              Voltar
-            </Button>
-          </Box>
-
-          <Box flexShrink={1}>
-            <Button
-              color="primary"
-              className={styles.submit}
-              onClick={() => handleSubmit(submitAndRedirect)}
-            >
-              Salvar
-            </Button>
-          </Box>
-          <Box flexShrink={0}>
-            <Button
-              onClick={() => handleSubmit(onSubmit)}
-              variant="contained"
-              type="submit"
-              color="primary"
-            >
-              Salvar e Continuar
-            </Button>
-          </Box>
-        </Box>
       </form>
 
-      {!!postId && <CommentsForm postId={postId}></CommentsForm>}
-    </>
+      {(!!postId || isEdit) && (
+        <CommentsForm postId={postId || modalState.postId}></CommentsForm>
+      )}
+    </Modal>
   );
 };

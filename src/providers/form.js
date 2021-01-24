@@ -11,6 +11,11 @@ const initialValue = {
     email: "",
     body: "",
   },
+  comments: [],
+  posts: [],
+  isSearching: false,
+  foundPosts: [],
+  searchField: "",
 };
 
 const FormContext = React.createContext(initialValue);
@@ -27,23 +32,37 @@ const reducer = (state, action) => {
         ...state,
         comment: action.payload,
       };
-
+    case "comments":
+      return {
+        ...state,
+        comments: [...action.payload],
+      };
+    case "posts":
+      return {
+        ...state,
+        posts: [...action.payload],
+      };
+    case "search":
+      return {
+        ...state,
+        isSearching: (action.payload.searchField.length > 0) | false,
+        searchField: action.payload.searchField,
+        foundPosts: state.posts.filter(
+          (post) =>
+            post.title
+              .toLowerCase()
+              .search(action.payload.searchField.toLowerCase()) !== -1
+        ),
+      };
     default:
       return;
   }
 };
 
 export const FormProvider = ({ children }) => {
-  //   const [form, setForm] = React.useState(initialValue);
   const [formState, formDispatch] = React.useReducer(reducer, initialValue);
 
-  //   const setFormValues = (values) => {
-  //     setForm((prevData) => ({
-  //       ...prevData,
-  //       ...values,
-  //     }));
-  //   };
-  console.log("cuzao", formState);
+  console.log("FormState => ", formState);
   return (
     <FormContext.Provider value={{ formState, setFormValues: formDispatch }}>
       {children}

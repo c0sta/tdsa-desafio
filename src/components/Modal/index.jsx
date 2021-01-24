@@ -1,12 +1,19 @@
 import React from "react";
-import { Avatar, Box, Modal as MuiModal, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Divider,
+  Modal as MuiModal,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Fade from "@material-ui/core/Fade";
 import PropTypes from "prop-types";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { ModalContext } from "../../providers/modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import EditIcon from "@material-ui/icons/Edit";
+import { Button } from "../";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -19,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     padding: theme.spacing(2),
     backgroundColor: theme.palette.background.default,
+    maxWidth: "60%",
   },
   avatar: {
     margin: theme.spacing(1),
@@ -37,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Modal({ ...props }) {
+export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
   const styles = useStyles();
   const { modalState, setToggleModal } = React.useContext(ModalContext);
   return (
@@ -60,7 +68,45 @@ export default function Modal({ ...props }) {
               {modalState.title}
             </Typography>
           </Box>
+
           {props.children}
+
+          <Divider />
+
+          <footer>
+            <Box display="flex" width="100%" margin={1}>
+              <Box flexGrow={1}>
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    setToggleModal({ type: "close" });
+                  }}
+                >
+                  Voltar
+                </Button>
+              </Box>
+
+              <Box flexShrink={1}>
+                <Button
+                  color="primary"
+                  className={styles.submit}
+                  onClick={() => handleSubmitAndRedirect()}
+                >
+                  Salvar
+                </Button>
+              </Box>
+              <Box flexShrink={0}>
+                <Button
+                  onClick={() => handleSubmit()}
+                  variant="contained"
+                  type="submit"
+                  color="primary"
+                >
+                  Salvar e Continuar
+                </Button>
+              </Box>
+            </Box>
+          </footer>
         </div>
       </Fade>
     </MuiModal>
