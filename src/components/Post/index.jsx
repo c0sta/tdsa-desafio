@@ -17,6 +17,7 @@ import { postService } from "../../services";
 import Swal from "sweetalert2";
 import { useSnackbar } from "notistack";
 import { useFormContext } from "../../providers/form";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   actionButtonsContainer: {
@@ -42,6 +43,7 @@ export function Post({ post }) {
   const { formState, setFormValues } = useFormContext();
   const styles = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const { t, i18n } = useTranslation();
 
   const removePost = (id) => {
     console.log(id);
@@ -72,7 +74,7 @@ export function Post({ post }) {
     // console.log("Edit: ", id);
     return setToggleModal({
       type: "open",
-      payload: { title: "Editar Post", type: "edit", postId: id },
+      payload: { title: t("titleModalEdit"), type: "edit", postId: id },
     });
   };
   return (
