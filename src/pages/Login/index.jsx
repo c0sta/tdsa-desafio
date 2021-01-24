@@ -12,7 +12,7 @@ import {
 import React from "react";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export const Login = () => {
   const useStyles = makeStyles((theme) => ({
@@ -33,6 +33,10 @@ export const Login = () => {
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    linkText: {
+      textDecoration: "none",
+      color: "#fff",
+    },
   }));
 
   const classes = useStyles();
@@ -43,10 +47,9 @@ export const Login = () => {
   });
 
   const history = useHistory();
-  // React.useEffect(() => {});
+
   const onSubmit = (data) => {
-    // alert(JSON.stringify(data));
-    history.push("/app");
+    console.log(JSON.stringify(data));
   };
 
   return (
@@ -94,20 +97,10 @@ export const Login = () => {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            <Link className={classes.linkText} to="/app">
+              Sign In
+            </Link>
           </Button>
-          {/* <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid> */}
         </form>
       </div>
     </Container>
