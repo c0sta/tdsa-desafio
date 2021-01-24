@@ -1,14 +1,11 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { CircularProgress } from "@material-ui/core";
 ReactDOM.render(
   <React.StrictMode>
-    <Suspense fallback={<CircularProgress />}>
-      <App />
-    </Suspense>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
