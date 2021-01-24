@@ -22,6 +22,7 @@ i18n
     resources,
     fallbackLng: "pt",
     debug: true,
+    useSuspense: false,
     interpolation: {
       escapeValue: false,
     },
