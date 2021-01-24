@@ -43,8 +43,19 @@ export const PostForm = ({ isAdd, isEdit }) => {
             payload: {
               id: response.data?.id,
               title: response.data?.title,
-              post: response.data?.post,
+              body: response.data?.body,
             },
+          });
+          setFormValues({
+            type: "posts",
+            payload: [
+              ...formState.posts,
+              {
+                id: response.data?.id,
+                title: response.data?.title,
+                body: response.data?.body,
+              },
+            ],
           });
           setPostId(response.data.id); // postId
           return response;

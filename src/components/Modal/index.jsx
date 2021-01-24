@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Divider,
+  IconButton,
   Modal as MuiModal,
   Typography,
 } from "@material-ui/core";
@@ -13,37 +14,8 @@ import { ModalContext } from "../../providers/modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import EditIcon from "@material-ui/icons/Edit";
 import { Button } from "../";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "0px solid #fff",
-  },
-  paper: {
-    boxShadow: theme.shadows[5],
-    border: "none",
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.background.default,
-    maxWidth: "60%",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "45%", // Fix IE 11 issue.
-    height: "95%",
-    marginTop: theme.spacing(3),
-  },
-  modalTitle: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-}));
+import CloseIcon from "@material-ui/icons/Close";
+import { useStyles } from "./styles";
 
 export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
   const styles = useStyles();
@@ -67,13 +39,22 @@ export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
             <Typography component="h1" variant="h5">
               {modalState.title}
             </Typography>
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => {
+                setToggleModal({ type: "close" });
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
           </Box>
 
           {props.children}
 
           <Divider />
 
-          <footer>
+          <footer className={styles.modalFooter}>
             <Box display="flex" width="100%" margin={1}>
               <Box flexGrow={1}>
                 <Button
@@ -95,7 +76,7 @@ export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
                   Salvar
                 </Button>
               </Box>
-              <Box flexShrink={0}>
+              <Box>
                 <Button
                   onClick={() => handleSubmit()}
                   variant="contained"

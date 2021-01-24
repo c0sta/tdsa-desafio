@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { ModalContext } from "../../providers/modal";
 import { Header, PostForm, List } from "../../components";
-
+import AddIcon from "@material-ui/icons/Add";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(3),
+    // background: "linear-gradient(45deg, #21CBF3 30%, #2196F3 90%)",
   },
 }));
 
@@ -32,16 +33,17 @@ export default function Home() {
     <>
       <Header />
       <Container maxWidth="md" className={styles.container}>
-        <Grid container direction="column" justify="flex-end">
-          <Button
-            className={styles.button}
-            variant="contained"
-            color="primary"
-            onClick={() => openModal()}
-          >
-            Adicionar post
-          </Button>
-
+        <Grid>
+          <Grid container flexDirection="row" justify="flex-end">
+            <Button
+              className={styles.button}
+              variant="contained"
+              color="primary"
+              onClick={() => openModal()}
+            >
+              <AddIcon /> Adicionar post
+            </Button>
+          </Grid>
           <List isPosts />
 
           {modalState.type === "new" ? <PostForm isAdd /> : <PostForm isEdit />}
