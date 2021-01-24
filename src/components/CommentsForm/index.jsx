@@ -10,10 +10,10 @@ import {
   Typography,
   IconButton,
   Grid,
-  makeStyles,
   Button,
   Divider,
   Avatar,
+  InputAdornment,
 } from "@material-ui/core";
 import { Input } from "../Input";
 import { useForm } from "react-hook-form";
@@ -23,58 +23,17 @@ import { useFormContext } from "../../providers/form";
 import { List } from "../List";
 import { Modal as MuiModal } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  root: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "0px solid #fff",
-  },
-  boxContainer: {
-    margin: theme.spacing(1, 1, 1),
-    marginTop: theme.spacing(3),
-
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  inputMargin: { marginTop: theme.spacing(1) },
-  submitButton: {
-    marginTop: theme.spacing(2),
-  },
-  collapseContainer: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContext: "flex-end",
-  },
-  paper: {
-    boxShadow: theme.shadows[5],
-    border: "none",
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.background.default,
-    maxWidth: "60%",
-  },
-  addCommentButton: {
-    margin: theme.spacing(2),
-  },
-}));
-
+import ChatIcon from "@material-ui/icons/Chat";
+import { useStyles } from "./styles";
+import { AccountCircle } from "@material-ui/icons";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 export const CommentsForm = ({ postId }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [showForm, setShowForm] = React.useState(false);
   const [showComments, setShowComments] = React.useState(false);
   const { formState, setFormValues } = useFormContext();
   const { register, handleSubmit, errors } = useForm({
-    mode: "onBlur",
-    defaultValues: {
-      name: formState?.comment.name,
-      email: formState?.comment.email,
-      body: formState?.comment.body,
-    },
+    mode: "onSubmit",
   });
   const styles = useStyles();
 
@@ -86,6 +45,17 @@ export const CommentsForm = ({ postId }) => {
         email: formData.email,
         body: formData.body,
       },
+    });
+    setFormValues({
+      type: "comments",
+      payload: [
+        ...formState.comments,
+        {
+          name: formData.name,
+          email: formData.email,
+          body: formData.body,
+        },
+      ],
     });
     return postService
       .create({ ...formData, postId: postId })
@@ -102,10 +72,11 @@ export const CommentsForm = ({ postId }) => {
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
+            alignItems="center"
             margin={2}
           >
-            <Avatar>
-              <AddIcon />
+            <Avatar className={styles.avatar}>
+              <ChatIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Comentar
@@ -113,7 +84,6 @@ export const CommentsForm = ({ postId }) => {
             <IconButton
               aria-label="expand row"
               size="small"
-              color="primary"
               onClick={() => {
                 setShowForm(!showForm);
               }}
@@ -143,6 +113,13 @@ export const CommentsForm = ({ postId }) => {
                 className={styles.inputMargin}
                 error={!!errors.name}
                 helperText={errors.name?.message}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -165,6 +142,13 @@ export const CommentsForm = ({ postId }) => {
                 className={styles.inputMargin}
                 error={!!errors.email}
                 helperText={errors.email?.message}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AlternateEmailIcon />
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Grid>
@@ -210,7 +194,6 @@ export const CommentsForm = ({ postId }) => {
   };
   return (
     <>
-      <Divider />
       <Box className={styles.boxContainer} flexGrow={1}>
         <Typography variant="h6" gutterBottom component="div">
           <Box display="flex" flexDirection="row" alignItems="center">
