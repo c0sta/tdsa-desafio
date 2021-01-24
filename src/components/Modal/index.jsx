@@ -16,10 +16,13 @@ import EditIcon from "@material-ui/icons/Edit";
 import { Button } from "../";
 import CloseIcon from "@material-ui/icons/Close";
 import { useStyles } from "./styles";
+import { useTranslation } from "react-i18next";
 
 export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
   const styles = useStyles();
   const { modalState, setToggleModal } = React.useContext(ModalContext);
+  const { t, i18n } = useTranslation();
+
   return (
     <MuiModal
       aria-labelledby="transition-modal-title"
@@ -63,7 +66,7 @@ export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
                     setToggleModal({ type: "close" });
                   }}
                 >
-                  Voltar
+                  {t("backButton")}
                 </Button>
               </Box>
 
@@ -73,7 +76,7 @@ export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
                   className={styles.submit}
                   onClick={() => handleSubmitAndRedirect()}
                 >
-                  Salvar
+                  {t("saveButton")}
                 </Button>
               </Box>
               <Box>
@@ -83,7 +86,7 @@ export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
                   type="submit"
                   color="primary"
                 >
-                  Salvar e Continuar
+                  {t("saveAndContinueButton")}
                 </Button>
               </Box>
             </Box>

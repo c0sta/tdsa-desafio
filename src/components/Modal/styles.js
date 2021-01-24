@@ -16,6 +16,7 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     backgroundColor: theme.palette.background.default,
     maxWidth: "60%",
+    minWidth: 370,
   },
   avatar: {
     margin: theme.spacing(1),
