@@ -50,6 +50,7 @@ export const Login = () => {
 
   const onSubmit = (data) => {
     console.log(JSON.stringify(data));
+    history.push("/app");
   };
 
   return (
@@ -90,17 +91,17 @@ export const Login = () => {
             }
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            <Link className={classes.linkText} to="/app">
+          <Link className={classes.linkText} to="/app">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
               Sign In
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </form>
       </div>
     </Container>

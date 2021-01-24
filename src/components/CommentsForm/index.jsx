@@ -57,6 +57,7 @@ export const CommentsForm = ({ postId }) => {
         },
       ],
     });
+    setShowForm(!showForm);
     return postService
       .create({ ...formData, postId: postId })
       .then((response) => {

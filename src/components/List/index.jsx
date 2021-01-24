@@ -54,22 +54,22 @@ export function List({ isPosts, isComments }) {
 
   return (
     <MuiList className={isPosts ? styles.container : styles.commentsContainer}>
-      {isPosts & !isSearching & !isComments
-        ? posts.map((post) => <Post key={post.id} post={post} />)
-        : foundPosts.map((post) => <Post key={post.id} post={post} />)}
-
       {isComments & !isPosts & !isSearching
         ? comments.map((comment) => (
             <Comment key={comment.id} data={comment}></Comment>
           ))
         : null}
 
-      {isCommentsEmpty & !isPosts ? (
+      {isPosts & !isSearching & !isComments
+        ? posts.map((post) => <Post key={post.id} post={post} />)
+        : foundPosts.map((post) => <Post key={post.id} post={post} />)}
+
+      {isCommentsEmpty & isComments & !isLoading ? (
         <Typography className={styles.emptyListMessage}>
           Não há comentários até o momento
         </Typography>
       ) : null}
-      {isPostsEmpty & isPosts ? (
+      {isPostsEmpty & isPosts & !isLoading ? (
         <Typography className={styles.emptyListMessage}>
           Não há postagens, volte mais tarde
         </Typography>
