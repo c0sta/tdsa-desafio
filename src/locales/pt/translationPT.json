@@ -1,0 +1,15 @@
+{
+  "headerTitle": "Página inicial",
+  "titleLogin": "Acessar conta",
+  "buttonLogin": "Entrar",
+  "buttonAddPost": "Adicionar publicação",
+  "searchPlaceholder": "Pesquisar...",
+  "titleModalNew": "Novo Post",
+  "titleModalEdit": "Editar Post",
+  "backButton": "Voltar",
+  "saveButton": "Salvar",
+  "saveAndContinueButton": "Salvar e Continuar",
+  "titleComment": "Comentários",
+  "titleModalComment": "Comentar",
+  "buttonAddComment": "Adicionar Comentário"
+}

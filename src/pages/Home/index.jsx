@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ModalContext } from "../../providers/modal";
 import { Header, PostForm, List } from "../../components";
 import AddIcon from "@material-ui/icons/Add";
+import { useTranslation } from "react-i18next";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -21,11 +22,12 @@ export default function Home() {
   const { modalState, setToggleModal } = React.useContext(ModalContext);
 
   const styles = useStyles();
+  const { t, i18n } = useTranslation();
 
   const openModal = () => {
     setToggleModal({
       type: "open",
-      payload: { title: "Novo Post", type: "new" },
+      payload: { title: t("titleModalNew"), type: "new" },
     });
   };
 
@@ -41,7 +43,7 @@ export default function Home() {
               color="primary"
               onClick={() => openModal()}
             >
-              <AddIcon /> Adicionar post
+              <AddIcon /> {t("buttonAddPost")}
             </Button>
           </Grid>
           <List isPosts />
