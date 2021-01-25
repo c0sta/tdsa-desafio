@@ -9,10 +9,10 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   commentsContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    // display: "flex", //Resolveu o bug da listagem de comentários
+    // flexDirection: "column",
+    // alignItems: "center",
+    // justifyContent: "center",
     overflowY: "auto",
     width: "100%",
     maxWidth: "65ch",
