@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+<h1 align="center">Projeto Teste</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br />
+<p align="center">
+  <a href="https://github.com/c0sta/tdsa-desafio">
+    <img src="https://res.cloudinary.com/programathor/image/upload/c_fit,h_130,w_130/v1610829399/mrswocivekw67qvlno5y.png" alt="Logo" width="300" height="80">
+  </a>
 
-## Available Scripts
+  <p align="center">
+    <br />
+    <a href="https://github.com/c0sta/tdsa-desafio"><strong>Veja a documentação »</strong></a>
+    <br />
+    <br />
+    <a href="https://tdsa-desafio.vercel.app/">🚀 Veja em produção</a>
+    ·
+    <a href="https://github.com/c0sta/tdsa-desafio/issues"> 🐛 Reporte um bug</a>
+  </p>
+</p>
 
-In the project directory, you can run:
+[![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/gabriel-costa-0761a2166/)
+![GitHub](https://img.shields.io/github/license/c0sta/tdsa-desafio?color=%23)
+![GitHub repo size](https://img.shields.io/github/repo-size/c0sta/tdsa-desafio?color=%23)
+![GitHub language count](https://img.shields.io/github/languages/count/c0sta/tdsa-desafio?color=%23)
+![GitHub top language](https://img.shields.io/github/languages/top/c0sta/tdsa-desafio?color=%23)
 
-### `npm start`
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary><h2 style="display: inline-block">Índice</h2></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">👨‍💻 Sobre o projeto</a>
+      <ul>
+        <li><a href="#built-with">🛠️ Ferramentas utilizadas</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">⚙️ Configuração</a>
+      <ul>
+        <li><a href="#prerequisites">✅ Pré-requisitos</a></li>
+        <li><a href="#installation">⬇️ Instalação</a></li>
+      </ul>
+    </li>
+    <li><a href="#license">Licença</a></li>
+    <li><a href="#contact">📧 Contatos</a></li>
+  </ol>
+</details>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<!-- ABOUT THE PROJECT -->
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 👨‍💻 Sobre o projeto
 
-### `npm test`
+![Página inicial](https://user-images.githubusercontent.com/36762964/105745268-dd36a100-5f1c-11eb-9d25-6c8427627d38.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+De maneira resumida o projeto consiste em consumir a [API](https://jsonplaceholder.typicode.com/) JSON Placeholder que possui dados relacionados de postagens, comentários e usuários.
 
-### `npm run build`
+Através dos dados disponibilizados pela API, foi proposto o desenvolvimento de uma aplicação para criar, editar, excluir e listar as postagens e comentários vinculados ao post.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Ferramentas utilizadas
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Durante o desenvolvimento foram utilizadas as seguintes tecnologias.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [⚛️ React](https://reactjs.org/docs/getting-started.html)
+- [💅 Material UI](https://material-ui.com/)
+- [⚗️ React i18next](https://react.i18next.com/)
+- [📜 React Hook Forms](React-hook-form.com)
+- [🐐 React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [🧪 Jest](https://jestjs.io/docs/en/tutorial-react)
 
-### `npm run eject`
+<!-- GETTING STARTED -->
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## ⚙️ Configuração
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Configurações necessárias para executar a aplicação de forma local.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### ✅ Pré-requisitos
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Instalar Node ou yarn
 
-## Learn More
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
+- yarn
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  ```sh
+  npm install --global yarn
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  ```
 
-### Code Splitting
+### ⬇️ Instalação
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Clone o repositório no diretório de preferência
+   ```sh
+   git clone https://github.com/c0sta/tdsa-desafio.git
+   ```
+2. Instalar dependências
+   ```sh
+   npm install
+   OU
+   yarn
+   ```
+3. Executar
+   ```sh
+   npm run start
+   OU
+   yarn start
+   ```
 
-### Analyzing the Bundle Size
+## 📸 Prints e Demonstrações
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-### Making a Progressive Web App
+_For more examples, please refer to the [Documentation](https://example.com)_
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<!-- LICENSE -->
 
-### Advanced Configuration
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Distributed under the MIT License. See `LICENSE` for more information.
 
-### Deployment
+<!-- CONTACT -->
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📧 Contatos
 
-### `npm run build` fails to minify
+Gabriel Costa Moura - gabrielcostamoura1@gmail.com
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Project Link: [https://github.com/c0sta/tdsa-desafio](https://github.com/c0sta/tdsa-desafio)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/c0sta/repo.svg?style=for-the-badge
+[contributors-url]: https://github.com/c0sta/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/c0sta/repo.svg?style=for-the-badge
+[forks-url]: https://github.com/c0sta/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/c0sta/repo.svg?style=for-the-badge
+[stars-url]: https://github.com/c0sta/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/c0sta/repo.svg?style=for-the-badge
+[issues-url]: https://github.com/c0sta/repo/issues
+[license-shield]: https://img.shields.io/github/license/c0sta/repo.svg?style=for-the-badge
+[license-url]: https://github.com/c0sta/repo/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/c0sta
