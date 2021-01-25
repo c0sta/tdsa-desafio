@@ -17,25 +17,8 @@ import { postService } from "../../services";
 import Swal from "sweetalert2";
 import { useSnackbar } from "notistack";
 import { useFormContext } from "../../providers/form";
+import { useStyles } from "./styles";
 import { useTranslation } from "react-i18next";
-
-const useStyles = makeStyles((theme) => ({
-  actionButtonsContainer: {
-    display: "flex",
-  },
-  container: {},
-  title: {
-    fontSize: 16,
-    fontWeight: 700,
-    color: "#333",
-  },
-  body: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: "#333",
-  },
-}));
-
 export function Post({ post }) {
   const [open, setOpen] = React.useState(false);
   const [confirmation, setConfirmation] = React.useState(null);
@@ -62,10 +45,6 @@ export function Post({ post }) {
         setFormValues({ type: "posts", payload: [...filteredPosts] });
         console.log(filteredPosts);
         return postService.delete(id).then((response) => console.log(response));
-      } else {
-        enqueueSnackbar("Erro ao deletar post", {
-          variant: "error",
-        });
       }
     });
   };
@@ -79,7 +58,7 @@ export function Post({ post }) {
   };
   return (
     <>
-      <ListItem alignItems="center">
+      <ListItem alignItems="center" data-testid="post-item">
         <ListItemAvatar>
           <Avatar
             alt="Remy Sharp"
@@ -109,7 +88,7 @@ export function Post({ post }) {
           }
         />
 
-        <Box display="flex" flexDirection="row">
+        <Box display="flex" flexdirection="row">
           <IconButton
             aria-label="expand row"
             size="small"

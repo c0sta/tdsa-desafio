@@ -38,7 +38,7 @@ export const Comment = ({ data }) => {
   const styles = useStyles();
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" data-testid="comment-item">
         <ListItemAvatar>
           <Avatar
             alt="Remy Sharp"

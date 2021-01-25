@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import changeLanguage from "../../utils/changeLanguage";
 export function Header() {
   const styles = useStyles();
-  const { formState, setFormValues } = useFormContext();
+  const { setFormValues } = useFormContext();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { t, i18n } = useTranslation();
   const open = Boolean(anchorEl);
@@ -32,7 +32,6 @@ export function Header() {
   };
 
   const filteredPost = (searchField) => {
-    console.log(searchField);
     if (searchField) {
       setFormValues({
         type: "search",
@@ -44,11 +43,16 @@ export function Header() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" data-testid="header">
       <Toolbar>
         <HomeIcon />
 
-        <Typography className={styles.title} variant="h6" noWrap>
+        <Typography
+          className={styles.title}
+          variant="h6"
+          noWrap
+          data-testid="header-title"
+        >
           {t("headerTitle")}
         </Typography>
 
@@ -66,6 +70,7 @@ export function Header() {
             onChange={(data) => {
               filteredPost(data.target.value);
             }}
+            data-testid="search"
           />
         </div>
         <div>
@@ -80,6 +85,7 @@ export function Header() {
           </IconButton>
           <Menu
             id="menu-appbar"
+            data-testid="lang-menu"
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: "top",
@@ -93,8 +99,12 @@ export function Header() {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={() => handleClose("en")}>Inglês</MenuItem>
-            <MenuItem onClick={() => handleClose("pt")}>Português</MenuItem>
+            <MenuItem data-testid="en" onClick={() => handleClose("en")}>
+              Inglês
+            </MenuItem>
+            <MenuItem data-testid="pt" onClick={() => handleClose("pt")}>
+              Português
+            </MenuItem>
           </Menu>
         </div>
       </Toolbar>
