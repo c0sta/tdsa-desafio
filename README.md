@@ -17,10 +17,6 @@
   </p>
 </p>
 
-
-![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
-)
-
 ![GitHub](https://img.shields.io/github/license/c0sta/tdsa-desafio?color=%23)
 ![GitHub repo size](https://img.shields.io/github/repo-size/c0sta/tdsa-desafio?color=%23)
 ![GitHub language count](https://img.shields.io/github/languages/count/c0sta/tdsa-desafio?color=%23)
@@ -126,4 +122,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 📧 Contatos
 
 Gabriel Costa Moura - gabrielcostamoura1@gmail.com
-
+Linkding - https://www.linkedin.com/in/gabriel-costa-0761a2166/
