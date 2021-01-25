@@ -124,20 +124,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Gabriel Costa Moura - gabrielcostamoura1@gmail.com
 
-Project Link: [https://github.com/c0sta/tdsa-desafio](https://github.com/c0sta/tdsa-desafio)
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/c0sta/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/c0sta/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/c0sta/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/c0sta/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/c0sta/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/c0sta/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/c0sta/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/c0sta/repo/issues
-[license-shield]: https://img.shields.io/github/license/c0sta/repo.svg?style=for-the-badge
-[license-url]: https://github.com/c0sta/repo/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/c0sta
