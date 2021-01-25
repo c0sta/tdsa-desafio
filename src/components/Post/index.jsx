@@ -7,7 +7,6 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  makeStyles,
   Typography,
 } from "@material-ui/core";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -15,35 +14,44 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { ModalContext } from "../../providers/modal";
 import { postService } from "../../services";
 import Swal from "sweetalert2";
-import { useSnackbar } from "notistack";
 import { useFormContext } from "../../providers/form";
 import { useStyles } from "./styles";
 import { useTranslation } from "react-i18next";
+
 export function Post({ post }) {
-  const [open, setOpen] = React.useState(false);
-  const [confirmation, setConfirmation] = React.useState(null);
-  const { modalState, setToggleModal } = React.useContext(ModalContext);
+  const { setToggleModal } = React.useContext(ModalContext);
   const { formState, setFormValues } = useFormContext();
   const styles = useStyles();
-  const { enqueueSnackbar } = useSnackbar();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const removePost = (id) => {
     console.log(id);
     Swal.fire({
-      title: "Você tem certeza?",
-      text: "Não será possível reverter!",
+      title: t("alertTitle"),
+      text: t("alertBody"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sim, deletar!",
+      confirmButtonText: t("alertConfirmButton"),
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deletado!", "A postagem foi excluida", "success");
-        const filteredPosts = formState.posts.filter((post) => post.id !== id);
-        setFormValues({ type: "posts", payload: [...filteredPosts] });
-        console.log(filteredPosts);
+
+        if (formState.isSearching) {
+          const filteredFoundPosts = formState.foundPosts.filter(
+            (post) => post.id !== id
+          );
+          setFormValues({
+            type: "deleteFound",
+            payload: [...filteredFoundPosts],
+          });
+        } else {
+          const filteredPosts = formState.posts.filter(
+            (post) => post.id !== id
+          );
+          setFormValues({ type: "posts", payload: [...filteredPosts] });
+        }
         return postService.delete(id).then((response) => console.log(response));
       }
     });

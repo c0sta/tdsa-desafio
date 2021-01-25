@@ -39,5 +39,3 @@ export const ModalProvider = (props) => {
     </ModalContext.Provider>
   );
 };
-// Hook para facilitar acesso no component
-// export const useModal = () => React.useContext(ModalContext);
