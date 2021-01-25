@@ -88,12 +88,25 @@ export const PostForm = ({ isAdd, isEdit }) => {
   };
 
   const loadFormData = () => {
-    if (modalState.postId !== 0)
-      return postService.getById(modalState.postId).then((response) => {
-        const formFields = ["title", "body"];
+    const formFields = ["title", "body"];
 
+    if (modalState.postId !== 0 && modalState.postId <= 100) {
+      return postService.getById(modalState.postId).then((response) => {
         formFields.forEach((field) => setValue(field, response[field]));
       });
+    }
+    const searchedItems = formState.posts.filter(
+      (post) => post.id === modalState.postId
+    );
+    const localItem = searchedItems[0];
+    console.log(localItem, modalState.postId);
+
+    localItem !== undefined && setValue("title", localItem.title);
+    localItem !== undefined && setValue("body", localItem.body);
+
+    // return localItem !== undefined
+    //   ? formFields.forEach((field) => setValue(field, localItem[field]))
+    //   : null;
   };
 
   const onSubmit = (formData) => {
