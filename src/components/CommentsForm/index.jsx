@@ -11,7 +11,6 @@ import {
   IconButton,
   Grid,
   Button,
-  Divider,
   Avatar,
   InputAdornment,
 } from "@material-ui/core";
@@ -192,7 +191,7 @@ export const CommentsForm = ({ postId }) => {
             onClick={() => handleSubmit(onSubmit)}
             fullWidth
           >
-            Enviar
+            {t("buttonSendComment")}
           </Button>
         </form>
       </MuiModal>

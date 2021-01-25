@@ -3,7 +3,6 @@
   "titleLogin": "Acessar conta",
   "buttonLogin": "Entrar",
   "buttonAddPost": "Adicionar publicação",
-  "searchPlaceholder": "Pesquisar...",
   "titleModalNew": "Novo Post",
   "titleModalEdit": "Editar Post",
   "backButton": "Voltar",
@@ -11,5 +10,10 @@
   "saveAndContinueButton": "Salvar e Continuar",
   "titleComment": "Comentários",
   "titleModalComment": "Comentar",
-  "buttonAddComment": "Adicionar Comentário"
+  "buttonAddComment": "Adicionar Comentário",
+  "buttonSendComment": "Enviar",
+  "searchPlaceholder": "Buscar...",
+  "alertTitle": "Você tem certeza?",
+  "alertBody": "Não será possível reverter!",
+  "alertConfirmButton": "Sim, deletar!"
 }

@@ -44,7 +44,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -54,5 +53,21 @@ export const useStyles = makeStyles((theme) => ({
         width: "20ch",
       },
     },
+  },
+  link: {
+    textDecoration: "none",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+  },
+  mainContainer: {
+    width: "95%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  containerSearch: {
+    display: "flex",
+    alignItems: "center",
   },
 }));
