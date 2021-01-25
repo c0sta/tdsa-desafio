@@ -5,34 +5,10 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-  makeStyles,
   Box,
 } from "@material-ui/core";
-
+import { useStyles } from "./styles";
 import React from "react";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "50%",
-    backgroundColor: theme.palette.background.paper,
-  },
-  titleContainer: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 14,
-    color: "#888",
-  },
-  body: {
-    fontSize: 14,
-    color: "#333",
-  },
-}));
 
 export const Comment = ({ data }) => {
   const styles = useStyles();
