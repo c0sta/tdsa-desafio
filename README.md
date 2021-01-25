@@ -18,7 +18,7 @@
 </p>
 
 
-[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/gabriel-costa-0761a2166/]
+[![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/gabriel-costa-0761a2166/)
 
 ![GitHub](https://img.shields.io/github/license/c0sta/tdsa-desafio?color=%23)
 ![GitHub repo size](https://img.shields.io/github/repo-size/c0sta/tdsa-desafio?color=%23)
