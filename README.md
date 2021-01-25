@@ -122,4 +122,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 📧 Contatos
 
 Gabriel Costa Moura - gabrielcostamoura1@gmail.com
-Linkding - https://www.linkedin.com/in/gabriel-costa-0761a2166/
+Linkedin - https://www.linkedin.com/in/gabriel-costa-0761a2166/
