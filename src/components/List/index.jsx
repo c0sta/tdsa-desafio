@@ -53,27 +53,34 @@ export function List({ isPosts, isComments }) {
   const { isPostsEmpty, isCommentsEmpty } = validateEmptyList();
 
   return (
-    <MuiList className={isPosts ? styles.container : styles.commentsContainer}>
-      {isComments & !isPosts & !isSearching
+    <MuiList
+      data-testid={isPosts ? "post-list" : "comment-list"}
+      className={isPosts ? styles.container : styles.commentsContainer}
+    >
+      {isComments & !isPosts
         ? comments.map((comment) => (
             <Comment key={comment.id} data={comment}></Comment>
           ))
         : null}
 
-      {isPosts & !isSearching & !isComments
+      {isPosts & !isSearching
         ? posts.map((post) => <Post key={post.id} post={post} />)
-        : foundPosts.map((post) => <Post key={post.id} post={post} />)}
+        : !isComments
+        ? foundPosts.map((post) => <Post key={post.id} post={post} />)
+        : null}
 
       {isCommentsEmpty & isComments & !isLoading ? (
         <Typography className={styles.emptyListMessage}>
           Não há comentários até o momento
         </Typography>
       ) : null}
+
       {isPostsEmpty & isPosts & !isLoading ? (
         <Typography className={styles.emptyListMessage}>
           Não há postagens, volte mais tarde
         </Typography>
       ) : null}
+
       {isLoading && <CircularProgress />}
     </MuiList>
   );

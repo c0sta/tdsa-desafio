@@ -54,6 +54,11 @@ const reducer = (state, action) => {
               .search(action.payload.searchField.toLowerCase()) !== -1
         ),
       };
+    case "deleteFound":
+      return {
+        ...state,
+        foundPosts: [...action.payload],
+      };
     default:
       return;
   }

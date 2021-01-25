@@ -11,7 +11,6 @@ import {
   IconButton,
   Grid,
   Button,
-  Divider,
   Avatar,
   InputAdornment,
 } from "@material-ui/core";
@@ -34,7 +33,7 @@ export const CommentsForm = ({ postId }) => {
   const [showForm, setShowForm] = React.useState(false);
   const [showComments, setShowComments] = React.useState(false);
   const { formState, setFormValues } = useFormContext();
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     mode: "onSubmit",
   });
   const { t, i18n } = useTranslation();
@@ -61,6 +60,7 @@ export const CommentsForm = ({ postId }) => {
         },
       ],
     });
+    reset();
     setShowForm(!showForm);
     return postService
       .create({ ...formData, postId: postId })
@@ -191,7 +191,7 @@ export const CommentsForm = ({ postId }) => {
             onClick={() => handleSubmit(onSubmit)}
             fullWidth
           >
-            Enviar
+            {t("buttonSendComment")}
           </Button>
         </form>
       </MuiModal>
@@ -238,7 +238,7 @@ export const CommentsForm = ({ postId }) => {
             disabled={!postId}
             // className={styles.addCommentButton}
           >
-            <AddIcon /> {t("buttonAddComment")}
+            {t("buttonAddComment")} <AddIcon />
           </IconButton>
         </Box>
         {showForm && <AddComment />}

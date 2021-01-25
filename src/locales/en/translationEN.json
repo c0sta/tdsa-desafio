@@ -3,7 +3,6 @@
   "buttonLogin": "Sign In",
   "titleLogin": "Sign In",
   "buttonAddPost": "Add Post",
-  "searchPlaceholder": "Search...",
   "titleModalNew": "New Post",
   "titleModalEdit": "Edit post",
   "backButton": "Back",
@@ -11,5 +10,10 @@
   "saveAndContinueButton": "Save and Continue",
   "titleComment": "Comments",
   "titleModalComment": "Comment",
-  "buttonAddComment": "Add comment"
+  "buttonAddComment": "Add comment",
+  "buttonSendComment": "Send",
+  "searchPlaceholder": "Search...",
+  "alertTitle": "Are you sure?",
+  "alertBody": "It's not possible to revert that!",
+  "alertConfirmButton": "Confirm"
 }
