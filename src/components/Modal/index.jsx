@@ -31,6 +31,7 @@ export function Modal({ handleSubmit, handleSubmitAndRedirect, ...props }) {
       open={modalState.isOpen}
       onClose={() => setToggleModal({ type: "close" })}
       closeAfterTransition
+      data-testid="modal"
       {...props}
     >
       <Fade in={modalState.isOpen}>

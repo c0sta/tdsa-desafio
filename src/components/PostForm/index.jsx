@@ -110,7 +110,11 @@ export const PostForm = ({ isAdd, isEdit }) => {
       handleSubmit={handleSubmit(onSubmit)}
       handleSubmitAndRedirect={handleSubmit(submitAndRedirect)}
     >
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        data-testid="post-form"
+      >
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Input
@@ -124,6 +128,7 @@ export const PostForm = ({ isAdd, isEdit }) => {
               })}
               error={!!errors.title}
               helperText={errors.title?.message}
+              data-testid="title-field"
             />
           </Grid>
           <Grid item xs={12}>
@@ -147,6 +152,7 @@ export const PostForm = ({ isAdd, isEdit }) => {
               })}
               error={!!errors.body}
               helperText={errors.body?.message}
+              data-testid="post-field"
             />
           </Grid>
         </Grid>

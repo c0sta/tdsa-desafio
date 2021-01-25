@@ -36,14 +36,16 @@ export default function Home() {
       <Header />
       <Container maxWidth="md" className={styles.container}>
         <Grid>
-          <Grid container flexDirection="row" justify="flex-end">
+          <Grid container flexdirection="row" justify="flex-end">
             <Button
               className={styles.button}
               variant="contained"
               color="primary"
               onClick={() => openModal()}
+              data-testid="add-button"
             >
-              <AddIcon /> {t("buttonAddPost")}
+              {t("buttonAddPost")}
+              <AddIcon />
             </Button>
           </Grid>
           <List isPosts />

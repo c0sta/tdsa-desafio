@@ -45,10 +45,6 @@ export function Post({ post }) {
         setFormValues({ type: "posts", payload: [...filteredPosts] });
         console.log(filteredPosts);
         return postService.delete(id).then((response) => console.log(response));
-      } else {
-        enqueueSnackbar("Erro ao deletar post", {
-          variant: "error",
-        });
       }
     });
   };
@@ -62,7 +58,7 @@ export function Post({ post }) {
   };
   return (
     <>
-      <ListItem alignItems="center">
+      <ListItem alignItems="center" data-testid="post-item">
         <ListItemAvatar>
           <Avatar
             alt="Remy Sharp"
@@ -92,7 +88,7 @@ export function Post({ post }) {
           }
         />
 
-        <Box display="flex" flexDirection="row">
+        <Box display="flex" flexdirection="row">
           <IconButton
             aria-label="expand row"
             size="small"
